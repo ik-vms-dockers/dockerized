@@ -10,9 +10,9 @@ services:
       POSTGRES_USER: '${POSTGRES_USER:-zabbix}'
       POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-zabbix}'
     volumes:
-      - 'zabbix_alertscripts:/usr/lib/zabbix/alertscripts'
-      - 'zabbix_externalscripts:/usr/lib/zabbix/externalscripts'
-      - 'zabbix_mibs:/usr/lib/zabbix/mibs'
+      - 'zabbix-alertscripts:/usr/lib/zabbix/alertscripts'
+      - 'zabbix-externalscripts:/usr/lib/zabbix/externalscripts'
+      - 'zabbix-mibs:/usr/lib/zabbix/mibs'
     ports:
       - '0.0.0.0:10051:10051'
 
@@ -37,10 +37,10 @@ services:
       POSTGRES_USER: '${POSTGRES_USER:-zabbix}'
       POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-zabbix}'
     volumes:
-      - 'postgres_data:/var/lib/postgresql/data:rw'
+      - 'postgres-data:/var/lib/postgresql/data:rw'
 
 volumes:
-  zabbix_alertscripts:
-  zabbix_externalscripts:
-  zabbix_mibs:
-  postgres_data:
+  zabbix-alertscripts:
+  zabbix-externalscripts:
+  zabbix-mibs:
+  postgres-data:

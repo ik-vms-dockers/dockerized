@@ -21,9 +21,9 @@ services:
       - '127.0.0.1:${GITLAB_REGISTRY_PORT:-5050}:5050'
       - '127.0.0.1:${GITLAB_SSH_PORT:-2222}:22'
     volumes:
-      - 'gitlab_config:/etc/gitlab:rw'
-      - 'gitlab_data:/var/opt/gitlab:rw'
+      - 'gitlab-config:/etc/gitlab:rw'
+      - 'gitlab-data:/var/opt/gitlab:rw'
 
 volumes:
-  gitlab_config:
-  gitlab_data:
+  gitlab-config:
+  gitlab-data:

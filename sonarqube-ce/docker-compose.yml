@@ -9,9 +9,9 @@ services:
       sonar.jdbc.password: '${POSTGRES_PASSWORD:-sonar}'
       sonar.jdbc.url: 'jdbc:postgresql://postgres/sonar'
     volumes:
-      - 'sonarqube_conf:/opt/sonarqube/conf:rw'
-      - 'sonarqube_data:/opt/sonarqube/data:rw'
-      - 'sonarqube_extensions:/opt/sonarqube/extensions:rw'
+      - 'sonarqube-conf:/opt/sonarqube/conf:rw'
+      - 'sonarqube-data:/opt/sonarqube/data:rw'
+      - 'sonarqube-ext:/opt/sonarqube/extensions:rw'
     ports:
       - '127.0.0.1:${SONARQUBE_PORT:-9000}:9000'
 
@@ -22,10 +22,10 @@ services:
       POSTGRES_USER: '${POSTGRES_USER:-sonar}'
       POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-sonar}'
     volumes:
-      - 'postgres_data:/var/lib/postgresql/data:rw'
+      - 'postgres-data:/var/lib/postgresql/data:rw'
 
 volumes:
-  sonarqube_conf:
-  sonarqube_data:
-  sonarqube_extensions:
-  postgres_data:
+  sonarqube-conf:
+  sonarqube-data:
+  sonarqube-ext:
+  postgres-data:

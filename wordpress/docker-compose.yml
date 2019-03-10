@@ -21,9 +21,9 @@ services:
     ports:
       - '127.0.0.1:${WORDPRESS_PORT:-8080}:80'
     volumes:
-      - 'wordpress_plugins:/var/www/html/wp-content/plugins:rw'
-      - 'wordpress_themes:/var/www/html/wp-content/themes:rw'
-      - 'wordpress_uploads:/var/www/html/wp-content/uploads:rw'
+      - 'wordpress-plugins:/var/www/html/wp-content/plugins:rw'
+      - 'wordpress-themes:/var/www/html/wp-content/themes:rw'
+      - 'wordpress-uploads:/var/www/html/wp-content/uploads:rw'
 
   mysql:
     image: 'mariadb:${MARIADB_VERSION:-latest}'
@@ -34,11 +34,11 @@ services:
       MYSQL_USER: '${MYSQL_USER:-wordpress}'
       MYSQL_PASSWORD: '${MYSQL_PASSWORD:-wordpress}'
     volumes:
-      - 'mysql_data:/var/lib/mysql:rw'
+      - 'mysql-data:/var/lib/mysql:rw'
 
 volumes:
-  wordpress_plugins:
-  wordpress_themes:
-  wordpress_uploads:
-  mysql_data:
+  wordpress-plugins:
+  wordpress-themes:
+  wordpress-uploads:
+  mysql-data:
 

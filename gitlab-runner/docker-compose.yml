@@ -8,8 +8,8 @@ services:
     cap_add:
       - ALL
     volumes:
-      - 'gitlab-runner-config:/etc/gitlab-runner'
-      - '/var/run/docker.sock:/var/run/docker.sock'
+      - 'gitlab-runner-config:/etc/gitlab-runner:rw'
+      - '/var/run/docker.sock:/var/run/docker.sock:rw'
 
 volumes:
   gitlab-runner-config:

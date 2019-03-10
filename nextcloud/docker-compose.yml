@@ -11,8 +11,8 @@ services:
       POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-nextcloud}'
       REDIS_HOST: 'redis'
     volumes:
-      - 'nextcloud_config:/var/www/html/config:rw'
-      - 'nextcloud_data:/var/www/html/data:rw'
+      - 'nextcloud-config:/var/www/html/config:rw'
+      - 'nextcloud-data:/var/www/html/data:rw'
     ports:
       - '127.0.0.1:${NEXTCLOUD_PORT:-8080}:80'
 
@@ -24,16 +24,16 @@ services:
       POSTGRES_USER: '${POSTGRES_USER:-nextcloud}'
       POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-nextcloud}'
     volumes:
-      - 'postgres_data:/var/lib/postgresql/data:rw'
+      - 'postgres-data:/var/lib/postgresql/data:rw'
 
   redis:
     image: 'redis:${REDIS_VERSION:-alpine}'
     restart: unless-stopped
     volumes:
-      - 'redis_data:/var/lib/redis:rw'
+      - 'redis-data:/var/lib/redis:rw'
 
 volumes:
-  nextcloud_config:
-  nextcloud_data:
-  postgres_data:
-  redis_data:
+  nextcloud-config:
+  nextcloud-data:
+  postgres-data:
+  redis-data:

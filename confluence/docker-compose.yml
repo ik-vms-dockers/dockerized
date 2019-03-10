@@ -13,7 +13,7 @@ services:
     ports:
       - '127.0.0.1:${CONFLUENCE_PORT:-8090}:8090'
     volumes:
-      - 'confluence_data:/var/confluence:rw'
+      - 'confluence-data:/var/confluence:rw'
 
   postgres:
     restart: unless-stopped
@@ -22,8 +22,8 @@ services:
       POSTGRES_USER: '${POSTGRES_USER:-confluence}'
       POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-confluence}'
     volumes:
-      - 'postgres_data:/var/lib/postgresql/data:rw'
+      - 'postgres-data:/var/lib/postgresql/data:rw'
 
 volumes:
-  confluence_data:
-  postgres_data:
+  confluence-data:
+  postgres-data:
