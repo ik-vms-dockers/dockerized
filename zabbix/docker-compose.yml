@@ -1,0 +1,46 @@
+version: '3.7'
+
+services:
+  server:
+    image: 'zabbix/zabbix-server-pgsql:${ZABBIX_VERSION:-latest}'
+    restart: unless-stopped
+    environment:
+      DB_SERVER_HOST: 'postgres'
+      POSTGRES_DB: 'zabbix'
+      POSTGRES_USER: '${POSTGRES_USER:-zabbix}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-zabbix}'
+    volumes:
+      - 'zabbix_alertscripts:/usr/lib/zabbix/alertscripts'
+      - 'zabbix_externalscripts:/usr/lib/zabbix/externalscripts'
+      - 'zabbix_mibs:/usr/lib/zabbix/mibs'
+    ports:
+      - '0.0.0.0:10051:10051'
+
+  web:
+    image: 'zabbix/zabbix-web-apache-pgsql:${ZABBIX_VERSION:-latest}'
+    restart: unless-stopped
+    environment:
+      ZBX_SERVER_NAME: '${ZABBIX_NAME:-Zabbix}'
+      ZBX_SERVER_HOST: 'server'
+      PHP_TZ: '${TZ:-Europe/Berlin}'
+      DB_SERVER_HOST: 'postgres'
+      POSTGRES_DB: 'zabbix'
+      POSTGRES_USER: '${POSTGRES_USER:-zabbix}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-zabbix}'
+    ports:
+      - '127.0.0.1:${ZABBIX_PORT:-8080}:80'
+
+  postgres:
+    image: 'postgres:${POSTGRES_VERSION:-alpine}'
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: '${POSTGRES_USER:-zabbix}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-zabbix}'
+    volumes:
+      - 'postgres_data:/var/lib/postgresql/data:rw'
+
+volumes:
+  zabbix_alertscripts:
+  zabbix_externalscripts:
+  zabbix_mibs:
+  postgres_data:
