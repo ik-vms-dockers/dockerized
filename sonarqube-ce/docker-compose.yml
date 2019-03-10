@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   sonarqube:
-    image: 'sonarqube:7.6-community'
+    image: 'sonarqube:${SONARQUBE_VERSION:-latest}'
     restart: unless-stopped
     environment:
       sonar.jdbc.username: '${POSTGRES_USER:-sonar}'
