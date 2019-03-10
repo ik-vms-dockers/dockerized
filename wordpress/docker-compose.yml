@@ -4,6 +4,15 @@ services:
   wordpress:
     image: 'wordpress:${WORDPRESS_VERSION:-latest}'
     restart: unless-stopped
+    environment:
+      WORDPRESS_DB_HOST: 'mysql'
+      WORDPRESS_DB_NAME: 'wordpress'
+      WORDPRESS_DB_USER: '${MYSQL_USER:-wordpress}'
+      WORDPRESS_DB_PASSWORD: '${MYSQL_PASSWORD:-wordpress}'
+      WORDPRESS_DEBUG: ${WORDPRESS_DEBUG:-0}
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_HOME', '${WORDPRESS_URL:-http://localhost:8080}');
+        define('WP_SITEURL', '${WORDPRESS_URL:-http://localhost:8080}');
     ports:
       - '127.0.0.1:${WORDPRESS_PORT:-8080}:80'
     volumes:
