@@ -6,7 +6,7 @@ if [[ -n "${CONFLUENCE_URL}" ]]; then
   xmlstarlet ed --inplace --update "/Server/Service/Connector/@proxyName" -v "${CONFLUENCE_URL}" --insert "/Server/Service/Connector[not(@proxyName)]" --type attr -n proxyName -v "${CONFLUENCE_URL}" ${CONFLUENCE_PATH}/conf/server.xml
 fi
 
-if [[ -n "${CONFLUENCE_MEM}" ]]; then
+if [[ -n "${CONFLUENCE_MAX_MEM}" ]]; then
   sed -i -e "s/Xms[0-9]+m/Xms${CONFLUENCE_MEM}m/" -e "s/Xmx[0-9]+m/Xmx${CONFLUENCE_MEM}m/" ${CONFLUENCE_PATH}/bin/setenv.sh
 fi
 

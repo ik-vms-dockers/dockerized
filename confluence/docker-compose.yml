@@ -1,22 +1,29 @@
 version: '3.7'
 
 services:
-  app:
+  confluence:
     restart: unless-stopped
     build:
       context: '.'
       args:
-        CONFLUENCE_VERSION: '6.14.2'
+        CONFLUENCE_VERSION: '${CONFLUENCE_VERSION:-6.14.2}'
+    environment:
+      CONFLUENCE_MAX_MEM: '${CONFLUENCE_MAX_MEM:-1024}'
+      CONFLUENCE_URL: '${CONFLUENCE_URL:-}'
     ports:
-      - '0.0.0.0:${CONFLUENCE_PORT:-8090}:8090'
+      - '127.0.0.1:${CONFLUENCE_PORT:-8090}:8090'
     volumes:
-      - './data/confluence:/var/confluence'
+      - 'confluence_data:/var/confluence:rw'
 
-  db:
+  postgres:
     restart: unless-stopped
     image: 'postgres:9.6-alpine'
     environment:
-      POSTGRES_USER: 'confluence'
-      POSTGRES_PASSWORD: 'confluence'
+      POSTGRES_USER: '${POSTGRES_USER:-confluence}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-confluence}'
     volumes:
-      - './data/postgresql:/var/lib/postgresql/data'
+      - 'postgres_data:/var/lib/postgresql/data:rw'
+
+volumes:
+  confluence_data:
+  postgres_data:
