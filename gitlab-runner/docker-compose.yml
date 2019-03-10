@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  gitlab-runner:
+    image: 'gitlab/gitlab-runner:${GITLAB_RUNNER_VERSION:-alpine}'
+    restart: unless-stopped
+    privileged: true
+    cap_add:
+      - ALL
+    volumes:
+      - 'gitlab-runner-config:/etc/gitlab-runner'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+
+volumes:
+  gitlab-runner-config:
