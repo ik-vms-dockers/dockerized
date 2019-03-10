@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  sonarqube:
+    image: 'sonarqube:7.6-community'
+    restart: unless-stopped
+    environment:
+      sonar.jdbc.username: '${POSTGRES_USER:-sonar}'
+      sonar.jdbc.password: '${POSTGRES_PASSWORD:-sonar}'
+      sonar.jdbc.url: 'jdbc:postgresql://postgres/sonar'
+    volumes:
+      - 'sonarqube_conf:/opt/sonarqube/conf:rw'
+      - 'sonarqube_data:/opt/sonarqube/data:rw'
+      - 'sonarqube_extensions:/opt/sonarqube/extensions:rw'
+    ports:
+      - '127.0.0.1:${SONARQUBE_PORT:-9000}:9000'
+
+  postgres:
+    image: 'postgres:11-alpine'
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: '${POSTGRES_USER:-sonar}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-sonar}'
+    volumes:
+      - 'postgres_data:/var/lib/postgresql/data:rw'
+
+volumes:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  postgres_data:

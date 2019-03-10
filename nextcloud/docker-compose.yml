@@ -30,7 +30,7 @@ services:
     image: 'redis:5-alpine'
     restart: unless-stopped
     volumes:
-      - 'redis_data:/var/lib/redis'
+      - 'redis_data:/var/lib/redis:rw'
 
 volumes:
   nextcloud_config:
