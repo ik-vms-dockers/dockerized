@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  wordpress:
+    image: 'wordpress:${WORDPRESS_VERSION:-latest}'
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:${WORDPRESS_PORT:-8080}:80'
+    volumes:
+      - 'wordpress_data:/var/www/html/wp-content:rw'
+
+  mysql:
+    image: 'mariadb:${MARIADB_VERSION:-latest}'
+    restart: unless-stopped
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: 'wordpress'
+      MYSQL_USER: '${MYSQL_USER:-wordpress}'
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD:-wordpress}'
+    volumes:
+      - 'mysql_data:/var/lib/mysql:rw'
+
+volumes:
+  wordpress_data:
+  mysql_data:
+
