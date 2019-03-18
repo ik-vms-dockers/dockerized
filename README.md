@@ -1,1 +1,11 @@
-A collection of *dockerized* environments.
+# Dockerized
+
+## Environments
+- Confluence
+- Gitlab CE
+- Gitlab Runner
+- Jira
+- Nextcloud
+- Sonarqube CE
+- Wordpress
+- Zabbix
