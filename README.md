@@ -1,6 +1,5 @@
 # Dockerized
 
-## Environments
 - Confluence
 - Gitlab CE
 - Gitlab Runner
