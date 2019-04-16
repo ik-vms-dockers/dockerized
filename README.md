@@ -8,5 +8,6 @@
 - [Jira](https://www.atlassian.com/software/jira)
 - [Nextcloud](https://nextcloud.org)
 - [Sonarqube CE](https://www.sonarqube.org/)
+- [Unifi Controller](https://www.ui.com/software/)
 - [Wordpress](https://www.wordpress.org)
 - [Zabbix](https://www.zabbix.com/)
