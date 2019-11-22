@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  typo3:
+    build:
+      context: '.'
+      args:
+        TYPO3_VERSION: '${TYPO3_VERSION:-9}'
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:${TYPO3_PORT:-8080}:80'
+    volumes:
+      - 'typo3-conf:/var/www/html/typo3conf:rw'
+      - 'typo3-data:/var/www/html/fileadmin:rw'
+
+  mysql:
+    image: 'mariadb:latest'
+    restart: unless-stopped
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: 'typo3'
+      MYSQL_USER: '${MYSQL_USER:-typo3}'
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD:-typo3}'
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    volumes:
+      - 'typo3-mysql:/var/lib/mysql:rw'
+
+volumes:
+  typo3-config:
+  typo3-data:
+  mysql-data:

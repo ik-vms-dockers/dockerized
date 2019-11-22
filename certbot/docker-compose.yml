@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  certbot:
+    build:
+      context: '.'
+      args:
+        CERTBOT_VERSION: '${CERTBOT_VERSION:-}'
+        CERTBOT_PLUGINS: '${CERTBOT_VERSION:-certbot-dns-cloudflare}'
+    restart: unless-stopped
+    environment:
+      CERTBOT_CONFIG: |
+        cli: |
+          rsa-key-size = 4096
+          webroot-path = /var/www/letsencrypt
+          server = https://acme-staging-v02.api.letsencrypt.org/directory
+        challenges:
+          cloudflare: |
+            dns_cloudflare_api_key = e5199316748f31141d21498a29b25a7c
+            dns_cloudflare_email = admin@example.org
+        certs:
+          - webroot: ['example.org', 'www.example.org']
+          - cloudflare: ['*.example.net'] 
+    volumes:
+      - 'certbot-webroot:/var/www/letsencrypt:rw'
+      - 'certbot-data:/etc/letsencrypt:rw'
+
+volumes:
+  certbot-data:
+  certbot-webroot:
