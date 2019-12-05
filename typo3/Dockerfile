@@ -1,6 +1,6 @@
-FROM php:7-apache
+FROM php:7.3-apache
 
-ARG TYPO3_VERSION="${TYPO3_VERSION:-9}"
+ARG TYPO3_VERSION="${TYPO3_VERSION:-9.5.11}"
 ENV DEBIAN_FRONTEND="noninteractive"
 
 RUN apt-get update
@@ -30,6 +30,8 @@ RUN echo "max_input_vars=1500" >> ${PHP_INI_DIR}/conf.d/typo3.ini
 
 RUN curl -fsSL --progress https://get.typo3.org/${TYPO3_VERSION} | tar zxf - -C /var/www/html/
 RUN ln -s /var/www/html/typo3_src-${TYPO3_VERSION} /var/www/html/typo3_src
-RUN ln -s /var/www/html/typo3_src/{index.php,typo3} /var/www/html/
+RUN ln -s /var/www/html/typo3_src/index.php /var/www/html/
+RUN ln -s /var/www/html/typo3_src/typo3 /var/www/html/
+RUN mkdir -p /var/www/html/typo3conf/ext
 RUN touch /var/www/html/FIRST_INSTALL
 RUN chown -R www-data:www-data /var/www/html
